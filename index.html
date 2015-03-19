@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+<script type="text/javascript" charset="utf-8" src="phonegap.js" ></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.mobile-1.4.5.min.js"></script>
 <title>Aplicación Móvil</title>
@@ -17,7 +18,7 @@
         var prom=parseInt($("#promedio").val());
 	$.ajax({
 	  type:"POST",
-	  url:"envio.php",
+	  url:"http//localhostvalery.260mb.net/envio.php",
 	  data:"nombre="+nom+"&edad="+edad+"&promedio="+prom,
 	  success:registro
 	  });
@@ -30,7 +31,7 @@
     btnConsulta.click(function cons(){
       $.ajax({
 	type:"POST",
-	url:"envio2.php",
+	url:"http//localhostvalery.260mb.net/envio2.php",
 	data:"",
 	success:consultaDatos	
 	});
