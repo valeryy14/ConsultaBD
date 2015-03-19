@@ -1,0 +1,106 @@
+<!DOCTYPE html-->
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+<title>Aplicación Móvil</title>
+<script type="text/javascript">
+  $(document).ready(function inicio(){
+    
+   
+    var btnGuardar=$("#Guardar");
+    btnGuardar.click(function guardar(){
+      var nom=$("#nombre").val();
+       var edad=$("#edad").val();
+        var prom=parseInt($("#promedio").val());
+	$.ajax({
+	  type:"POST",
+	  url:"envio.php",
+	  data:"nombre="+nom+"&edad="+edad+"&promedio="+prom,
+	  success:registro
+	  });
+	function registro(datos) {
+	  alert(datos);
+	
+	}
+      });
+    var btnConsulta=$("#consultar");
+    btnConsulta.click(function cons(){
+      $.ajax({
+	type:"POST",
+	url:"envio2.php",
+	data:"",
+	success:consultaDatos	
+	});
+      function consultaDatos(datos) {
+	var respDatos=$.parseJSON(datos);
+	var respuesta=$("#resconsulta");
+	respuesta.html("");
+	respuesta.append('<table id="tab" border="1">');
+	var tabla=$("#tab");
+	tabla.html("<tr><th>ID</th><th>Nombre</th><th>Edad</th><th>Promedio</th></tr>");
+	for(var i in respDatos){
+	  tabla.append("<tr><td>"+respDatos[i].Id_Estudiante+"</td>"
+	   +"<td>"+respDatos[i].Nombre+"<td>"
+	  +"<td>"+respDatos[i].Edad+"<td>"
+	  +"<td>"+respDatos[i].Promedio+"</td></tr>");  
+      
+    }
+	tabla.append("</table>");
+	
+      }
+    });
+  });
+</script>
+</head>
+<body>
+  <div data-role="page" id="principal">
+  <div data-role="header">
+  <p>Datos de alumno</p>
+  </div>
+<div data-role="content">
+  <div>
+    <ul data-role="listview">
+     
+      <li><a href="#registro">Registrar</a></li>
+       <li><a href="#consulta">Consultar</a></li>
+      
+    </ul>
+  </div>
+</div>
+  <div data-role="footer">
+      <p>Derechos Reservados</p>
+  </div>
+  </div>
+   <div data-role="page" id="registro">
+  <div data-role="header">
+  <p>registrar datos</p>
+  </div>
+  <label for="nombre">Nombre:</label>
+  <input type="text" id="nombre">
+      <label for="edad">Edad:</label>
+  <input type="text" id="edad">
+      <label for="promedio">Promedio:</label>
+  <input type="text" id="promedio">
+  <input type="button" id="Guardar" value="Guardar"> 
+  </div>
+ <div data-role="footer">
+  <p>Derechos Reservados</p>
+  </div>
+   <div data-role="page" id="consulta">
+  <div data-role="header">
+  <p>consultar datos</p>
+  </div>
+<div data-role="content">
+  <input type="button" id="consultar" value="consultar">
+    <div id="resconsulta"></div>
+  </div>
+ <div data-role="footer">
+  <p>Derechos Reservados</p>
+  </div>
+ 
+</body>
+</html>
+
